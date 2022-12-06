@@ -7,6 +7,7 @@ import com.xdpiqbx.db.services.DatabaseInitService;
 import com.xdpiqbx.db.services.DatabasePopulateService;
 import com.xdpiqbx.db.services.DatabaseQueryService;
 
+import java.math.BigInteger;
 import java.time.LocalDate;
 
 public class App {
@@ -15,10 +16,23 @@ public class App {
 //        DatabasePopulateService.populateDatabase();
 //        DatabaseQueryService.printResult();
 
-        DatabasePopulateService.addWorker(
-                "Viking",
-                LocalDate.now().minusYears(45),
-                DatabasePopulateService.Level.JUNIOR,
-                900);
+//        DatabasePopulateService.addWorker(
+//                "Will Smith",
+//                LocalDate.now().minusYears(45),
+//                DatabasePopulateService.Level.SENIOR,
+//                3900);
+
+//        DatabasePopulateService.addClient("John D. Rockefeller");
+
+//        DatabasePopulateService.addProject(
+//                BigInteger.valueOf(8),
+//                LocalDate.now().minusDays(100),
+//                LocalDate.now().plusDays(50)
+//        );
+
+//        DatabasePopulateService.addProjectWorker(
+//                BigInteger.valueOf(4),
+//                BigInteger.valueOf(15)
+//        );
     }
 }
