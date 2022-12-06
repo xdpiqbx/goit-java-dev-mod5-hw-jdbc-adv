@@ -7,21 +7,20 @@ import com.xdpiqbx.db.Database;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
 public class DatabaseQueryService {
     private static final Database db = Database.getInstance();
+    private static final Connection connection = db.getConnection();
     private static final String path = Helper.env("SQL_FILES_PATH");
     public static void main(String[] args) {
         printResult();
     }
     public List<MaxProjectCountClient> maxProjectCountClient(){
-        try(Statement st = db.getConnection().createStatement()) {
-            try(ResultSet rs = st.executeQuery(sqlQueryFromFile("find_max_projects_client"))){
+        try(PreparedStatement st = connection.prepareStatement(sqlQueryFromFile("find_max_projects_client"))) {
+            try(ResultSet rs = st.executeQuery()){
                 List<MaxProjectCountClient> maxProjectCountClients = new ArrayList<>();
                 while(rs.next()){
                     maxProjectCountClients.add(
@@ -37,8 +36,8 @@ public class DatabaseQueryService {
         }
     }
     public List<LongestProject> longestProject(){
-        try(Statement st = db.getConnection().createStatement()) {
-            try(ResultSet rs = st.executeQuery(sqlQueryFromFile("find_longest_project"))){
+        try(PreparedStatement st = connection.prepareStatement(sqlQueryFromFile("find_longest_project"))) {
+            try(ResultSet rs = st.executeQuery()){
                 List<LongestProject> longestProjects = new ArrayList<>();
                 while(rs.next()){
                     longestProjects.add(
@@ -54,8 +53,8 @@ public class DatabaseQueryService {
         }
     }
     public List<MaxSalaryWorker> maxSalaryWorker(){
-        try(Statement st = db.getConnection().createStatement()) {
-            try(ResultSet rs = st.executeQuery(sqlQueryFromFile("find_max_salary_worker"))){
+        try(PreparedStatement st = connection.prepareStatement(sqlQueryFromFile("find_max_salary_worker"))) {
+            try(ResultSet rs = st.executeQuery()){
                 List<MaxSalaryWorker> maxSalaryWorkers = new ArrayList<>();
                 while(rs.next()){
                     maxSalaryWorkers.add(
@@ -71,8 +70,8 @@ public class DatabaseQueryService {
         }
     }
     public List<YoungestEldestWorker> youngestAndEldestWorkers(){
-        try(Statement st = db.getConnection().createStatement()){
-            try(ResultSet rs = st.executeQuery(sqlQueryFromFile("find_youngest_eldest_workers"))){
+        try(PreparedStatement st = connection.prepareStatement(sqlQueryFromFile("find_youngest_eldest_workers"))){
+            try(ResultSet rs = st.executeQuery()){
                 List<YoungestEldestWorker> youngestEldestWorkers = new ArrayList<>();
                 while(rs.next()){
                     youngestEldestWorkers.add(
@@ -89,8 +88,8 @@ public class DatabaseQueryService {
         }
     }
     public List<ProjectPrice> projectPrice(){
-        try(Statement st = db.getConnection().createStatement()) {
-            try(ResultSet rs = st.executeQuery(sqlQueryFromFile("print_project_prices"))) {
+        try(PreparedStatement st = connection.prepareStatement(sqlQueryFromFile("print_project_prices"))) {
+            try(ResultSet rs = st.executeQuery()) {
                 List<ProjectPrice> projectPrices = new ArrayList<>();
                 while(rs.next()){
                     projectPrices.add(
