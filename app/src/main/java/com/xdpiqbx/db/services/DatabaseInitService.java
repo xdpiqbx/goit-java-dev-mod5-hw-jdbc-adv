@@ -6,6 +6,9 @@ import com.xdpiqbx.db.Database;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 
 public class DatabaseInitService {
     public static void main(String[] args) {
@@ -13,9 +16,10 @@ public class DatabaseInitService {
     }
     public static void initDb(Database db, String pathToFile){
         try {
+            Connection connection = db.getConnection();
             String sql = String.join("\n", Files.readAllLines(Paths.get(pathToFile)));
-            db.executeUpdate(sql);
-        } catch (IOException e) {
+            connection.prepareStatement(sql).executeUpdate();
+        } catch (IOException | SQLException e) {
             throw new RuntimeException(e);
         }
     }
